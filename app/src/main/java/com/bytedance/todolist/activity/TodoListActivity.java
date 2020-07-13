@@ -1,5 +1,6 @@
 package com.bytedance.todolist.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bytedance.todolist.database.TodoListDao;
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.bytedance.todolist.R;
@@ -42,8 +45,19 @@ public class TodoListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO
+                Intent intent = new Intent(TodoListActivity.this, TodoListTakeNoteActivity.class);
+                startActivity(intent);
             }
         });
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadFromDatabase();
+                handler.postDelayed(this, 1000);
+            }
+        }, 1000);
+
 
         mFab.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -65,6 +79,12 @@ public class TodoListActivity extends AppCompatActivity {
         loadFromDatabase();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadFromDatabase();
+    }
+
     private void loadFromDatabase() {
         new Thread() {
             @Override
@@ -80,4 +100,5 @@ public class TodoListActivity extends AppCompatActivity {
             }
         }.start();
     }
+
 }

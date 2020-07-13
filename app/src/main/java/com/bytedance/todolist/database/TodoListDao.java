@@ -1,6 +1,7 @@
 package com.bytedance.todolist.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -20,4 +21,7 @@ public interface TodoListDao {
 
     @Query("DELETE FROM todo")
     void deleteAll();
+
+    @Query("DELETE FROM todo WHERE content=:content")
+    void deleteItemByContent(String content);
 }
