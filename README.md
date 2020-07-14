@@ -1,4 +1,4 @@
-# Android2020
+# Android2020 - hw7
 Android2020 homeworks after 7.7
 
 使用Glide展示图片，加载中、加载失败时展示特定图片。
