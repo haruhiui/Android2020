@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.SeekBar;
@@ -72,7 +73,20 @@ public class IJKPlayerActivity extends AppCompatActivity {
         });
 
         // SeekBar
-        SeekBar seekBar = findViewById(R.id.seek_bar);
+        final SeekBar seekBar = findViewById(R.id.seek_bar);
+
+        seekBar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (ijkPlayer.getDuration() == 0) {
+                    seekBar.setProgress(0);
+                }
+                else {
+                    seekBar.setProgress((int)(ijkPlayer.getCurrentPosition() / ijkPlayer.getDuration()));
+                }
+            }
+        }, 1000);
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
