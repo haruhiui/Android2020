@@ -41,7 +41,8 @@ public class IJKPlayerActivity extends AppCompatActivity {
         }
         ijkPlayer.setListener(new VideoPlayerListener());
         // ijkPlayer.setVideoResource(R.raw.bytedance);
-        ijkPlayer.setVideoPath(getVideoPath());
+//        ijkPlayer.setVideoPath(getVideoPath());
+        ijkPlayer.setVideoResource(R.raw.video1);       // faster
 
         findViewById(R.id.buttonPlay).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +83,9 @@ public class IJKPlayerActivity extends AppCompatActivity {
                     seekBar.setProgress(0);
                 }
                 else {
-                    seekBar.setProgress((int)(ijkPlayer.getCurrentPosition() / ijkPlayer.getDuration()));
+                    seekBar.setProgress((int)(100.0 * ijkPlayer.getCurrentPosition() / ijkPlayer.getDuration()));
                 }
+                seekBar.postDelayed(this, 1000);
             }
         }, 1000);
 
